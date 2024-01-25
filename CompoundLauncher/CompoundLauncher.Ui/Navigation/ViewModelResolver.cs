@@ -18,7 +18,12 @@ public static class ViewModelResolver
             throw new NotSupportedException("The resolver must be initialized before a resolve operation");
         }
 
-        var instance = (T) _serviceProvider.GetService(typeof(T))!;
+        var instance = (T?)_serviceProvider.GetService(typeof(T));
+        if (instance == null)
+        {
+            throw new InvalidOperationException($"The View Model '{typeof(T).FullName}' has not been registered");
+        }
+
         return instance;
     }
 }

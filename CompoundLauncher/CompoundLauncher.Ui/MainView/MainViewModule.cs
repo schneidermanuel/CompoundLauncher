@@ -8,4 +8,5 @@ internal static class MainViewModule
     {
         serviceCollection.AddTransient<MainViewModel>();
     }
+
 }

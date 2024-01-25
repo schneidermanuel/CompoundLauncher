@@ -4,5 +4,5 @@ namespace CompoundLauncher.Ui.Navigation;
 
 public interface INavigationService
 {
-    Task NavigateToAsync<TViewModel>() where TViewModel : ViewModelBase;
+    Task NavigateToAsync<TViewModel>(params object[] navigationParams) where TViewModel : ViewModelBase;
 }

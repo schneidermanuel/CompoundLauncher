@@ -2,7 +2,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             xmlns:mainView="clr-namespace:CompoundLauncher.Ui.MainView"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CompoundLauncher.Ui.MainView.MainView">
-    <TextBlock Text="this is the view"></TextBlock>
+    <Design.DataContext>
+        <mainView:MainViewModel />
+    </Design.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Classes="IconButton" Command="{Binding CreateNewCommand}">
+                <avalonia:Icon Value="fa-regular fa-square-plus" />
+            </Button>
+        </Grid>
+    </Grid>
 </UserControl>

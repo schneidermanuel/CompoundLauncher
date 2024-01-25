@@ -7,14 +7,12 @@
         x:Class="CompoundLauncher.Views.MainWindow"
         x:DataType="mainWindow:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
+        Background="DimGray"
         Title="CompoundLauncher">
 
     <Design.DataContext>
         <mainWindow:MainWindowViewModel />
     </Design.DataContext>
 
-    <StackPanel>
-        <TextBlock Text="Hallo"></TextBlock>
-        <ContentControl Content="{Binding DisplayedView}" />
-    </StackPanel>
+    <ContentControl Margin="20" Content="{Binding DisplayedView}" />
 </Window>

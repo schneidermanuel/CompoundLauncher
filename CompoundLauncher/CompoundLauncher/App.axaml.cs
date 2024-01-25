@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using CompoundLauncher.DataAccess;
 using CompoundLauncher.MainWindow;
 using CompoundLauncher.Ui;
 using CompoundLauncher.Ui.MainView;
@@ -30,10 +31,11 @@ public partial class App : Application
             desktop.MainWindow = mainWindow;
             collection.AddSingleton<INavigationCore>(viewModel);
             collection.AddUiTypes();
+            collection.AddDataAccessTypes();
             var serviceProvider = collection.BuildServiceProvider();
             ViewModelResolver.Setup(serviceProvider);
             var navigation = serviceProvider.GetService<INavigationService>();
-            navigation.NavigateToAsync<MainViewModel>();
+            _ = navigation!.NavigateToAsync<MainViewModel>();
         }
 
         base.OnFrameworkInitializationCompleted();

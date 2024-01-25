@@ -1,3 +1,4 @@
+using CompoundLauncher.Ui.EditCompound;
 using CompoundLauncher.Ui.MainView;
 using CompoundLauncher.Ui.Navigation;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,5 +11,6 @@ public static class UiModule
     {
         serviceCollection.AddNavigationTypes();
         serviceCollection.AddMainViewTypes();
+        serviceCollection.AddEditCompoundTypes();
     }
 }
