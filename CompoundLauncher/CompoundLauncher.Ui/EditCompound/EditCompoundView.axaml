@@ -3,9 +3,38 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:editCompound="clr-namespace:CompoundLauncher.Ui.EditCompound"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CompoundLauncher.Ui.EditCompound.EditCompoundView">
     <Design.DataContext>
         <editCompound:EditCompoundViewModel />
     </Design.DataContext>
+    <Grid RowDefinitions="Auto, *">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 10">
+            <Button Classes="IconButton" Command="{Binding GoBackCommand}">
+                <avalonia:Icon Value="fa-solid fa-right-to-bracket" />
+            </Button>
+            <Button Classes="IconButton">
+                <avalonia:Icon Value="fa-solid fa-rotate-left" />
+            </Button>
+            <Button Classes="IconButton">
+                <avalonia:Icon Value="fa-solid fa-floppy-disk" />
+            </Button>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+            <Grid ColumnDefinitions="Auto, 20, *" RowDefinitions="Auto, Auto, Auto">
+                <Label Grid.Row="0" Grid.Column="0" Content="Name" Classes="Title" />
+                <TextBox Classes="Input" Grid.Row="0" Grid.Column="2" Text="{Binding Name}" />
+                <Label Grid.Row="1" Grid.Column="0" Content="Description" Classes="Title" />
+                <TextBox Classes="Input" Grid.Row="1" Grid.Column="2" />
+                <Label Grid.Row="2" Grid.Column="0" Content="Invokes" Classes="Title" VerticalAlignment="Top" />
+                <Button Grid.Row="2" Grid.Column="2">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <avalonia:Icon Value="fa-solid fa-plus" />
+                        <Label Content="Add new" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

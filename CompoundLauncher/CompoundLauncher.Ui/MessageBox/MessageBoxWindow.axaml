@@ -1,0 +1,34 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:messageBox="clr-namespace:CompoundLauncher.Ui.MessageBox"
+        xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+        x:Class="CompoundLauncher.Ui.MessageBox.MessageBoxWindow"
+        Title="{Binding Title}"
+        Height="120"
+        Width="750">
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="Width" Value="125" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="10 0 0 0" />
+        </Style>
+    </Window.Styles>
+    <Design.DataContext>
+        <messageBox:MessageBoxViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="*,5, 32" Margin="5">
+        <Grid ColumnDefinitions="Auto, 20, *">
+            <avalonia:Icon Value="{Binding Icon}" Margin="15 0 0 0" FontSize="48" />
+            <TextBlock Grid.Column="2" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center"
+                       TextWrapping="Wrap"
+                       Text="{Binding Message}" />
+        </Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+            <Button Content="Ok" IsVisible="{Binding OkButtonVisible}" Command="{Binding OkCommand}" />
+            <Button Content="Yes" IsVisible="{Binding YesButtonVisible}" Command="{Binding YesCommand}" />
+            <Button Content="No" IsVisible="{Binding NoButtonVisible}" Command="{Binding NoCommand}" />
+            <Button Content="Cancel" IsVisible="{Binding CancelButtonVisible}" Command="{Binding CancelCommand}" />
+        </StackPanel>
+    </Grid>
+
+</Window>

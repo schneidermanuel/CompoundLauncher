@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:information="clr-namespace:CompoundLauncher.Ui.Information"
+             xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
+             x:Class="CompoundLauncher.Ui.Information.InformationView">
+    <Design.DataContext>
+        <information:InformationViewModel />
+    </Design.DataContext>
+    <Grid RowDefinitions="Auto, *">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Classes="IconButton" Command="{Binding GoBackCommand}">
+                <avalonia:Icon Value="fa-solid fa-right-from-bracket" />
+            </Button>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto">
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, 20, *">
+                <Label Grid.Row="0" Grid.Column="0" Content="Application Name" Classes="Title" />
+                <Label Grid.Row="0" Grid.Column="2" Content="CompoundLauncher" />
+
+                <Label Grid.Row="1" Grid.Column="0" Content="Lead developer" Classes="Title" />
+                <Button Grid.Row="1" Grid.Column="2" Classes="Hyperlink" Content="Manuel Schneider"  Command="{Binding OpenGithubCommand}"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Content="Application Version" Classes="Title" />
+                <Label Grid.Row="2" Grid.Column="2" Content="{Binding ApplicationVersion}" />
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

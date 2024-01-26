@@ -5,9 +5,42 @@
 
     <Application.Styles>
         <FluentTheme />
+        <Style Selector="Button.Hyperlink">
+            <Setter Property="Foreground" Value="Blue" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <ContentPresenter Content="{TemplateBinding Content}">
+                        <ContentPresenter.Styles>
+                            <Style Selector="TextBlock">
+                                <Setter Property="Foreground" Value="{TemplateBinding Foreground}" />
+                                <Setter Property="FontSize" Value="{TemplateBinding FontSize}" />
+                                <Setter Property="TextDecorations" Value="Underline" />
+                            </Style>
+                        </ContentPresenter.Styles>
+                    </ContentPresenter>
+                </ControlTemplate>
+            </Setter>
+        </Style>
         <Style Selector="Button.IconButton">
+            <Setter Property="Margin" Value="10 0 0 0"></Setter>
             <Setter Property="Width" Value="32" />
             <Setter Property="Height" Value="32" />
+        </Style>
+        <Style Selector="Window">
+            <Setter Property="Background" Value="DimGray" />
+        </Style>
+        <Style Selector="Label.Title">
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Margin" Value="0 0 0 5" />
+        </Style>
+        <Style Selector="TextBox.Input">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Margin" Value="0 0 0 5" />
         </Style>
     </Application.Styles>
 </Application>

@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using CompoundLauncher.DataAccess;
@@ -30,6 +31,7 @@ public partial class App : Application
             };
             desktop.MainWindow = mainWindow;
             collection.AddSingleton<INavigationCore>(viewModel);
+            collection.AddSingleton<Window>(mainWindow);
             collection.AddUiTypes();
             collection.AddDataAccessTypes();
             var serviceProvider = collection.BuildServiceProvider();

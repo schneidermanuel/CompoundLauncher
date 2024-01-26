@@ -18,9 +18,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Button Grid.Column="1" Classes="IconButton" Command="{Binding CreateNewCommand}">
                 <avalonia:Icon Value="fa-regular fa-square-plus" />
+            </Button>
+            <Button Grid.Column="2" Classes="IconButton" Command="{Binding ShowInformationCommand}">
+                <avalonia:Icon Value="fa-regular fa-circle-question" />
             </Button>
         </Grid>
     </Grid>
