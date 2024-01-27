@@ -4,8 +4,7 @@ using CompoundLauncher.Ui.Navigation;
 
 namespace CompoundLauncher.Ui.Shared;
 
-[ObservableObject]
-public partial class ViewModelBase
+public class ViewModelBase : ObservableValidator
 {
     public bool IsDirty { get; set; }
 

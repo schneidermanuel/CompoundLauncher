@@ -6,4 +6,8 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\CompoundLauncher.DataAccess\CompoundLauncher.DataAccess.csproj" />
+    </ItemGroup>
+
 </Project>
