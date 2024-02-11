@@ -17,7 +17,7 @@
             <Button Classes="IconButton">
                 <avalonia:Icon Value="fa-solid fa-rotate-left" />
             </Button>
-            <Button Classes="IconButton">
+            <Button Classes="IconButton" Command="{Binding SaveCommand}">
                 <avalonia:Icon Value="fa-solid fa-floppy-disk" />
             </Button>
         </StackPanel>

@@ -1,8 +1,8 @@
-using CompoundLauncher.DataAccess.Compounds;
-using CompoundLauncher.DataAccess.FileProvider;
+using CompoundLauncher.Domain.DataAccess.Compounds;
+using CompoundLauncher.Domain.DataAccess.FileProvider;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CompoundLauncher.DataAccess;
+namespace CompoundLauncher.Domain.DataAccess;
 
 public static class DataAccessModule
 {

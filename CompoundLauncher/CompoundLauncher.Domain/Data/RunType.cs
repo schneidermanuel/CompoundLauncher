@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace CompoundLauncher.DataAccess.Compounds.Data;
+namespace CompoundLauncher.Domain.Data;
 
 [Serializable]
 public enum RunType

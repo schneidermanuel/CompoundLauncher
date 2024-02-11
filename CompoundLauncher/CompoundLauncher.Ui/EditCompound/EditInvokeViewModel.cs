@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using Avalonia.Controls;
 using Avalonia.Platform.Storage;
@@ -20,9 +21,9 @@ internal partial class EditInvokeViewModel : ViewModelBase
         AllLaunchTypes = _launchTypeProvider.GetAllAvailableLaunchTypes();
     }
 
-    [ObservableProperty] private string _application;
-    [ObservableProperty] private string _args;
-    [ObservableProperty] private LaunchType _launchType;
+    [Required] [ObservableProperty] private string _application;
+    [Required] [ObservableProperty] private string _args;
+    [Required] [ObservableProperty] private LaunchType _launchType;
     [ObservableProperty] private IReadOnlyCollection<LaunchType> _allLaunchTypes;
 
     [RelayCommand]

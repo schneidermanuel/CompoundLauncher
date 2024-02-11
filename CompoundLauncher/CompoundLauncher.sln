@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompoundLauncher.Ui", "Comp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompoundLauncher.Domain", "CompoundLauncher.Domain\CompoundLauncher.Domain.csproj", "{A0F6A1A3-73A8-4E4A-9A2C-D0CA5D1D4D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompoundLauncher.DataAccess", "CompoundLauncher.DataAccess\CompoundLauncher.DataAccess.csproj", "{EC1807A0-7A76-40B3-908A-FFB0DE9706B3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +24,5 @@ Global
 		{A0F6A1A3-73A8-4E4A-9A2C-D0CA5D1D4D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0F6A1A3-73A8-4E4A-9A2C-D0CA5D1D4D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0F6A1A3-73A8-4E4A-9A2C-D0CA5D1D4D2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC1807A0-7A76-40B3-908A-FFB0DE9706B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC1807A0-7A76-40B3-908A-FFB0DE9706B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC1807A0-7A76-40B3-908A-FFB0DE9706B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC1807A0-7A76-40B3-908A-FFB0DE9706B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

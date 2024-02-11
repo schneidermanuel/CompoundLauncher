@@ -1,6 +1,6 @@
 using System.ComponentModel;
 using System.Reflection;
-using CompoundLauncher.DataAccess.Compounds.Data;
+using CompoundLauncher.Domain.Data;
 
 namespace CompoundLauncher.Domain.LaunchTypes;
 

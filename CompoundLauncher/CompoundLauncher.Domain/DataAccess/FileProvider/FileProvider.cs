@@ -1,4 +1,6 @@
-namespace CompoundLauncher.DataAccess.FileProvider;
+using System.Xml.Serialization;
+
+namespace CompoundLauncher.Domain.DataAccess.FileProvider;
 
 internal class FileProvider : IFileProvider
 {
@@ -20,5 +22,23 @@ internal class FileProvider : IFileProvider
     public string GetCompoundFileName(string guid)
     {
         return Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName, guid + ".cmp");
+    }
+
+    public T AccessFileData<T>(string fileName)
+    {
+        using var stream = File.Open(fileName, FileMode.Open);
+        var xmlSerializer = new XmlSerializer(typeof(T));
+        var loaded = (T)xmlSerializer.Deserialize(stream)!;
+        return loaded;
+    }
+
+    public async Task StoreData<T>(string fileName, T input)
+    {
+        var path = Path.GetDirectoryName(fileName);
+        Directory.CreateDirectory(path);
+        var stream = File.Open(fileName, FileMode.Create);
+        var xmlSerializer = new XmlSerializer(typeof(T));
+        xmlSerializer.Serialize(stream, input);
+        await Task.CompletedTask;
     }
 }

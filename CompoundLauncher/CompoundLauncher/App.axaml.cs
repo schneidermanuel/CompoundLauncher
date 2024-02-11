@@ -2,8 +2,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using CompoundLauncher.DataAccess;
 using CompoundLauncher.Domain;
+using CompoundLauncher.Domain.DataAccess;
 using CompoundLauncher.MainWindow;
 using CompoundLauncher.Ui;
 using CompoundLauncher.Ui.MainView;
@@ -34,7 +34,6 @@ public partial class App : Application
             collection.AddSingleton<INavigationCore>(viewModel);
             collection.AddSingleton<Window>(mainWindow);
             collection.AddUiTypes();
-            collection.AddDataAccessTypes();
             collection.AddDomainTypes();
             var serviceProvider = collection.BuildServiceProvider();
             ViewModelResolver.Setup(serviceProvider);

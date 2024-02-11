@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CompoundLauncher.DataAccess.Compounds;
+namespace CompoundLauncher.Domain.DataAccess.Compounds;
 
 internal static class CompoundModule
 {

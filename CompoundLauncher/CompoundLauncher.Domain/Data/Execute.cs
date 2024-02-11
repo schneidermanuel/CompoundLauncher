@@ -1,4 +1,4 @@
-namespace CompoundLauncher.DataAccess.Compounds.Data;
+namespace CompoundLauncher.Domain.Data;
 
 [Serializable]
 public class Execute

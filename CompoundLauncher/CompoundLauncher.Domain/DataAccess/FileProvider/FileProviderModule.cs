@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CompoundLauncher.DataAccess.FileProvider;
+namespace CompoundLauncher.Domain.DataAccess.FileProvider;
 
 public static class FileProviderModule
 {

@@ -28,7 +28,6 @@
 
 
     <ItemGroup>
-      <ProjectReference Include="..\CompoundLauncher.DataAccess\CompoundLauncher.DataAccess.csproj" />
       <ProjectReference Include="..\CompoundLauncher.Domain\CompoundLauncher.Domain.csproj" />
       <ProjectReference Include="..\CompoundLauncher.Ui\CompoundLauncher.Ui.csproj" />
     </ItemGroup>
