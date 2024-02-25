@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:avalonia="https://github.com/projektanker/icons.avalonia"
              xmlns:mainView="clr-namespace:CompoundLauncher.Ui.MainView"
+             xmlns:avaloniaProgressRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="CompoundLauncher.Ui.MainView.MainView">
     <Design.DataContext>
@@ -27,5 +28,53 @@
                 <avalonia:Icon Value="fa-regular fa-circle-question" />
             </Button>
         </Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <ItemsControl ItemsSource="{Binding Items}" IsVisible="{Binding !IsLoading}">
+                <ItemsControl.DataTemplates>
+                    <DataTemplate DataType="{x:Type mainView:CompoundItemViewModel}">
+                        <Button Classes="CmpButton" CornerRadius="12" Background="DarkSlateGray" Width="250"
+                                Margin="10" Height="320" Padding="5" BorderThickness="1" BorderBrush="Black">
+                            <Grid RowDefinitions="*, Auto" ColumnDefinitions="*, Auto">
+                                <Grid RowDefinitions="Auto, Auto, 2*, 3*"
+                                      Grid.Row="0" Grid.RowSpan="2" Grid.Column="0"
+                                      Grid.ColumnSpan="2" Grid.IsSharedSizeScope="True">
+                                    <TextBlock Grid.Row="0" Text="{Binding Guid}" Foreground="DarkGray"
+                                               FontSize="8" TextAlignment="Right"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding Name}" />
+                                    <TextBlock Grid.Row="2" Text="{Binding Description}" TextWrapping="Wrap" />
+                                    <TextBlock Grid.Row="3" Text="{Binding Invokes}" TextWrapping="Wrap" />
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                                    <Button Classes="RoundButton" Command="{Binding DeleteItemCommand}"
+                                            Background="OrangeRed">
+                                        <avalonia:Icon Value="fa-solid fa-trash-can" />
+                                    </Button>
+                                    <Button Classes="RoundButton" Command="{Binding ShowItemCommand}">
+                                        <avalonia:Icon Value="fa-solid fa-pen" />
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+
+                            <Button.Styles>
+                                <Style
+                                    Selector="Button.CmpButton:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                                    <Setter Property="Background" Value="SlateGray" />
+                                </Style>
+                            </Button.Styles>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.DataTemplates>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <avaloniaProgressRing:ProgressRing Grid.Row="1" IsActive="{Binding IsLoading}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           Width="120"
+                                           Height="120" />
     </Grid>
 </UserControl>

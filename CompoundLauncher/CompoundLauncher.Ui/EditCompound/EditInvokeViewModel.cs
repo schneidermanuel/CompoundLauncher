@@ -22,7 +22,7 @@ internal partial class EditInvokeViewModel : ViewModelBase
     }
 
     [Required] [ObservableProperty] private string _application;
-    [Required] [ObservableProperty] private string _args;
+    [ObservableProperty] private string _args;
     [Required] [ObservableProperty] private LaunchType _launchType;
     [ObservableProperty] private IReadOnlyCollection<LaunchType> _allLaunchTypes;
 

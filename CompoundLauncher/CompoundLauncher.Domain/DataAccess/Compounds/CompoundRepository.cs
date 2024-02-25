@@ -12,23 +12,23 @@ internal class CompoundRepository : ICompoundRepository
         _fileProvider = fileProvider;
     }
 
-    public IReadOnlyList<Compound> RetrieveAllCompoundsAsync()
+    public async Task<IReadOnlyList<Compound>> RetrieveAllCompoundsAsync()
     {
-        var files = _fileProvider.GetCompounds();
-        var compounds = files.Select(RetrieveCompoundFromFile).ToArray();
+        var files = await _fileProvider.GetCompoundsAsync();
+        var compounds = await Task.WhenAll(files.Select(RetrieveCompoundFromFileAsync));
         return compounds;
     }
 
-    private Compound RetrieveCompoundFromFile(string fileName)
+    private async Task<Compound> RetrieveCompoundFromFileAsync(string fileName)
     {
-        var data = _fileProvider.AccessFileData<Compound>(fileName);
+        var data = await _fileProvider.AccessFileDataAsync<Compound>(fileName);
         return data;
     }
 
-    public Compound RetrieveCompoundByGuid(string guid)
+    public async Task<Compound> RetrieveCompoundByGuidAsync(string guid)
     {
         var filename = _fileProvider.GetCompoundFileName(guid);
-        return RetrieveCompoundFromFile(filename);
+        return await RetrieveCompoundFromFileAsync(filename);
     }
 
     public async Task SaveCompoundAsync(Compound compound, CancellationToken cancellationToken)
@@ -39,6 +39,12 @@ internal class CompoundRepository : ICompoundRepository
         }
 
         var fileName = _fileProvider.GetCompoundFileName(compound.Guid);
-        await _fileProvider.StoreData(fileName, compound);
+        await _fileProvider.StoreDataAsync(fileName, compound);
+    }
+
+    public async Task DeleteCompoundAsync(string guid, CancellationToken cancellationToken)
+    {
+        var fileName = _fileProvider.GetCompoundFileName(guid);
+        await _fileProvider.DeleteFileAsync(fileName);
     }
 }

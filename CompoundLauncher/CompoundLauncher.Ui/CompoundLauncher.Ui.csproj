@@ -19,10 +19,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Avalonia" Version="11.0.7" />
-      <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.7" />
+      <PackageReference Include="Avalonia" Version="11.0.9" />
+      <PackageReference Include="Avalonia.ReactiveUI" Version="11.0.9" />
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+      <PackageReference Include="Deadpikle.AvaloniaProgressRing" Version="0.10.5" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0-preview.1.24080.9" />
       <PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="9.0.1" />
     </ItemGroup>
 

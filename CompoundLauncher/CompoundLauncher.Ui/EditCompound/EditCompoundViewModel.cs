@@ -7,11 +7,13 @@ using CompoundLauncher.Domain.DataAccess.Compounds;
 using CompoundLauncher.Domain.LaunchTypes;
 using CompoundLauncher.Ui.MainView;
 using CompoundLauncher.Ui.MessageBox.Provider;
+using CompoundLauncher.Ui.Navigation;
 using CompoundLauncher.Ui.Shared;
+using DynamicData;
 
 namespace CompoundLauncher.Ui.EditCompound;
 
-internal partial class EditCompoundViewModel : ViewModelBase
+internal partial class EditCompoundViewModel : ViewModelBase, INavigationAware
 {
     private readonly IMessageBoxProvider _messageBoxProvider;
     private readonly Window _window;
@@ -33,6 +35,7 @@ internal partial class EditCompoundViewModel : ViewModelBase
     }
 
     [Required] [ObservableProperty] private string _name;
+    [ObservableProperty] private string _description;
     private string _guid;
     [ObservableProperty] private BetterObservableCollection<EditInvokeViewModel> _invokes;
 
@@ -49,8 +52,9 @@ internal partial class EditCompoundViewModel : ViewModelBase
     {
         var compound = new Compound
         {
-            Name = _name,
+            Name = Name,
             Guid = _guid,
+            Description = Description,
             Components = Invokes.Select(invoke =>
             {
                 _ = Enum.TryParse<RunType>(invoke.LaunchType.Key, out var runType);
@@ -82,5 +86,22 @@ internal partial class EditCompoundViewModel : ViewModelBase
         }
 
         await NavigationService.NavigateToAsync<MainViewModel>();
+    }
+
+    public async Task OnNavigatedTo(NavigationContext context)
+    {
+        var guid = context.GetParameter<string>();
+        if (!string.IsNullOrEmpty(guid))
+        {
+            var compound = await _repository.RetrieveCompoundByGuidAsync(guid);
+            Name = compound.Name;
+            Description = compound.Description;
+            var invokes = compound.Components.Select(x => new EditInvokeViewModel(_window, _launchTypeProvider)
+            {
+                Application = x.Executable,
+                Args = x.Args
+            });
+            Invokes.AddRange(invokes);
+        }
     }
 }

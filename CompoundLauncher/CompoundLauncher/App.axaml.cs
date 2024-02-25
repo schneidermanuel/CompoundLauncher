@@ -37,8 +37,8 @@ public partial class App : Application
             collection.AddDomainTypes();
             var serviceProvider = collection.BuildServiceProvider();
             ViewModelResolver.Setup(serviceProvider);
-            var navigation = serviceProvider.GetService<INavigationService>();
-            _ = navigation!.NavigateToAsync<MainViewModel>();
+            var entryPoint = serviceProvider.GetService<IEntryPoint>();
+            _ = entryPoint!.EnterAsync();
         }
 
         base.OnFrameworkInitializationCompleted();

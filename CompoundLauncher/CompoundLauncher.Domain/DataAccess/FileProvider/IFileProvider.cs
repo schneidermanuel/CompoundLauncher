@@ -2,8 +2,9 @@ namespace CompoundLauncher.Domain.DataAccess.FileProvider;
 
 internal interface IFileProvider
 {
-    IReadOnlyCollection<string> GetCompounds();
+    Task<IReadOnlyCollection<string>> GetCompoundsAsync();
     string GetCompoundFileName(string guid);
-    T AccessFileData<T>(string fileName);
-    Task StoreData<T>(string fileName, T input);
+    Task<T> AccessFileDataAsync<T>(string fileName);
+    Task StoreDataAsync<T>(string fileName, T input);
+    Task DeleteFileAsync(string fileName);
 }

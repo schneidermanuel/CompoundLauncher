@@ -19,9 +19,10 @@ public class NavigationService : INavigationService
         if (viewModelInstance is INavigationAware navigationAware)
         {
             var context = new NavigationContext(navigationParams);
-            await navigationAware.OnNavigatedTo(context);
+            _ = navigationAware.OnNavigatedTo(context);
         }
 
         _core.DoNavigate(view);
+        await Task.CompletedTask;
     }
 }

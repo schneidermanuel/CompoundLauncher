@@ -13,10 +13,13 @@ internal class FileProvider : IFileProvider
         return compoundLauncherPath;
     }
 
-    public IReadOnlyCollection<string> GetCompounds()
+    public async Task<IReadOnlyCollection<string>> GetCompoundsAsync()
     {
-        var files = Directory.GetFiles(Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName));
-        return files;
+        return await Task.Run(() =>
+        {
+            var files = Directory.GetFiles(Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName));
+            return files;
+        });
     }
 
     public string GetCompoundFileName(string guid)
@@ -24,21 +27,35 @@ internal class FileProvider : IFileProvider
         return Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName, guid + ".cmp");
     }
 
-    public T AccessFileData<T>(string fileName)
+    public async Task<T> AccessFileDataAsync<T>(string fileName)
     {
-        using var stream = File.Open(fileName, FileMode.Open);
-        var xmlSerializer = new XmlSerializer(typeof(T));
-        var loaded = (T)xmlSerializer.Deserialize(stream)!;
-        return loaded;
+        return await Task.Run(() =>
+        {
+            using var stream = File.Open(fileName, FileMode.Open);
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            var loaded = (T)xmlSerializer.Deserialize(stream)!;
+            return loaded;
+        });
     }
 
-    public async Task StoreData<T>(string fileName, T input)
+    public async Task StoreDataAsync<T>(string fileName, T input)
     {
-        var path = Path.GetDirectoryName(fileName);
-        Directory.CreateDirectory(path);
-        var stream = File.Open(fileName, FileMode.Create);
-        var xmlSerializer = new XmlSerializer(typeof(T));
-        xmlSerializer.Serialize(stream, input);
-        await Task.CompletedTask;
+        await Task.Run(() =>
+        {
+            var path = Path.GetDirectoryName(fileName);
+            Directory.CreateDirectory(path);
+            var stream = File.Open(fileName, FileMode.Create);
+            var xmlSerializer = new XmlSerializer(typeof(T));
+            xmlSerializer.Serialize(stream, input);
+            stream.Close();
+        });
+    }
+
+    public async Task DeleteFileAsync(string fileName)
+    {
+        await Task.Run(() =>
+        {
+            File.Delete(fileName);
+        });
     }
 }

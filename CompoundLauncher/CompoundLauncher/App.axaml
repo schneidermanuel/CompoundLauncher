@@ -4,7 +4,19 @@
              RequestedThemeVariant="Default">
 
     <Application.Styles>
+        <StyleInclude Source="avares://AvaloniaProgressRing/Styles/ProgressRing.xaml" />
         <FluentTheme />
+        <Style Selector="TextBlock.CmpTitle">
+            <Setter Property="Margin" Value="0 0 8 0" />
+        </Style>
+        <Style Selector="Button.RoundButton">
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Width" Value="50" />
+            <Setter Property="Height" Value="50" />
+            <Setter Property="CornerRadius" Value="25" />
+            <Setter Property="Background" Value="LightGreen" />
+            <Setter Property="Foreground" Value="Black" />
+        </Style>
         <Style Selector="Button.Hyperlink">
             <Setter Property="Foreground" Value="Blue" />
             <Setter Property="Padding" Value="0" />

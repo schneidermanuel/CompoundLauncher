@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace CompoundLauncher.Ui.Shared;
 
-internal sealed class BetterObservableCollection<T> : ObservableCollection<T>
+public sealed class BetterObservableCollection<T> : ObservableCollection<T>
 {
     public event EventHandler ItemChanged;
 
