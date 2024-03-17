@@ -28,7 +28,7 @@
                 <avalonia:Icon Value="fa-regular fa-circle-question" />
             </Button>
         </Grid>
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Row="1">
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <ItemsControl ItemsSource="{Binding Items}" IsVisible="{Binding !IsLoading}">
                 <ItemsControl.DataTemplates>
                     <DataTemplate DataType="{x:Type mainView:CompoundItemViewModel}">
@@ -41,7 +41,8 @@
                                     <TextBlock Grid.Row="0" Text="{Binding Guid}" Foreground="DarkGray"
                                                FontSize="8" TextAlignment="Right" />
                                     <TextBlock Grid.Row="1" Text="{Binding Name}" FontSize="16" />
-                                    <TextBlock Grid.Row="2" Text="{Binding Description}" TextWrapping="Wrap" Foreground="DarkGray"/>
+                                    <TextBlock Grid.Row="2" Text="{Binding Description}" TextWrapping="Wrap"
+                                               Foreground="DarkGray" />
                                     <TextBlock Grid.Row="3" Text="{Binding Invokes}" TextWrapping="Wrap" />
                                 </Grid>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
