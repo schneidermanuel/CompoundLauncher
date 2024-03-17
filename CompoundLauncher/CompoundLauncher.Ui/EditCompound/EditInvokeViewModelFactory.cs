@@ -1,27 +1,37 @@
-using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Input;
 using CompoundLauncher.Domain.Data;
-using CompoundLauncher.Domain.LaunchTypes;
+using CompoundLauncher.Ui.Navigation;
 
 namespace CompoundLauncher.Ui.EditCompound;
 
 internal class EditInvokeViewModelFactory : IEditInvokeViewModelFactory
 {
-    private readonly Window _window;
-    private readonly ILaunchTypeProvider _launchTypeProvider;
+    private readonly INavigationService _navigationService;
 
-    public EditInvokeViewModelFactory(Window window, ILaunchTypeProvider launchTypeProvider)
+    public EditInvokeViewModelFactory(INavigationService navigationService)
     {
-        _window = window;
-        _launchTypeProvider = launchTypeProvider;
+        _navigationService = navigationService;
     }
 
-    public EditInvokeViewModel Create(Execute execute)
+    public EditInvokeViewModel Create(EditCompoundViewModel parent, Execute execute)
     {
-        var viewModel = new EditInvokeViewModel(_window, _launchTypeProvider)
-        {
-            
-        };
-        
+        var viewModel = ViewModelResolver.Resolve<EditInvokeViewModel>();
+        viewModel.Create(_navigationService);
+        viewModel.Application = execute.Executable;
+        viewModel.Args = execute.Args;
+        viewModel.LaunchType = viewModel.AllLaunchTypes.Single(t => t.Key == execute.RunType.ToString());
+        viewModel.RemoveInvokeCommand = new RelayCommand(() => parent.Invokes.Remove(viewModel));
+        viewModel.IsDirty = false;
+
+        return viewModel;
+    }
+
+    public EditInvokeViewModel Create(EditCompoundViewModel parent)
+    {
+        var viewModel = ViewModelResolver.Resolve<EditInvokeViewModel>();
+        viewModel.Create(_navigationService);
+        viewModel.RemoveInvokeCommand = new RelayCommand(() => parent.Invokes.Remove(viewModel));
+        viewModel.IsDirty = false;
         return viewModel;
     }
 }

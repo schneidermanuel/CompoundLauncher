@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -19,12 +20,14 @@ internal partial class EditCompoundViewModel : ViewModelBase, INavigationAware
     private readonly Window _window;
     private readonly ILaunchTypeProvider _launchTypeProvider;
     private readonly ICompoundRepository _repository;
+    private readonly IEditInvokeViewModelFactory _editInvokeViewModelFactory;
 
     public EditCompoundViewModel(
         IMessageBoxProvider messageBoxProvider,
         Window window,
         ILaunchTypeProvider launchTypeProvider,
-        ICompoundRepository repository)
+        ICompoundRepository repository,
+        IEditInvokeViewModelFactory editInvokeViewModelFactory)
     {
         Invokes = new BetterObservableCollection<EditInvokeViewModel>();
         Invokes.ItemChanged += (_, _) => OnPropertyChanged(nameof(Invokes));
@@ -32,22 +35,72 @@ internal partial class EditCompoundViewModel : ViewModelBase, INavigationAware
         _window = window;
         _launchTypeProvider = launchTypeProvider;
         _repository = repository;
+        _editInvokeViewModelFactory = editInvokeViewModelFactory;
     }
 
-    [Required] [ObservableProperty] private string _name;
-    [ObservableProperty] private string _description;
-    private string _guid;
-    [ObservableProperty] private BetterObservableCollection<EditInvokeViewModel> _invokes;
+    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [Required]
+    [ObservableProperty]
+    private string? _name;
+
+    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [ObservableProperty]
+    private string? _description;
+
+    private string? _guid;
+
+    [ObservableProperty]
+    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    private BetterObservableCollection<EditInvokeViewModel> _invokes;
+
+    private bool _isDirty;
+
+    public override bool IsDirty
+    {
+        get => _isDirty;
+        set
+        {
+            _isDirty = value;
+            SaveCommand.NotifyCanExecuteChanged();
+            ResetCommand.NotifyCanExecuteChanged();
+        }
+    }
+
+
+    [RelayCommand(CanExecute = nameof(CanReset))]
+    private async Task ResetAsync()
+    {
+        if (!string.IsNullOrEmpty(_guid))
+        {
+            await InitializeAsync(_guid);
+        }
+        else
+        {
+            Invokes.Clear();
+            Name = null;
+            Description = null;
+        }
+    }
+
+    private bool CanReset()
+    {
+        return IsDirty;
+    }
 
     [RelayCommand]
     private void AddInvoke()
     {
-        var newInvoke = new EditInvokeViewModel(_window, _launchTypeProvider);
+        var newInvoke = _editInvokeViewModelFactory.Create(this);
         newInvoke.RemoveInvokeCommand = new RelayCommand(() => Invokes.Remove(newInvoke));
         Invokes.Add(newInvoke);
     }
 
-    [RelayCommand]
+    private bool CanSave()
+    {
+        return IsDirty && !HasErrors && Invokes.All(i => !i.HasErrors);
+    }
+
+    [RelayCommand(CanExecute = nameof(CanSave))]
     private async Task SaveAsync(CancellationToken cancellationToken)
     {
         var compound = new Compound
@@ -93,15 +146,19 @@ internal partial class EditCompoundViewModel : ViewModelBase, INavigationAware
         var guid = context.GetParameter<string>();
         if (!string.IsNullOrEmpty(guid))
         {
-            var compound = await _repository.RetrieveCompoundByGuidAsync(guid);
-            Name = compound.Name;
-            Description = compound.Description;
-            var invokes = compound.Components.Select(x => new EditInvokeViewModel(_window, _launchTypeProvider)
-            {
-                Application = x.Executable,
-                Args = x.Args
-            });
-            Invokes.AddRange(invokes);
+            await InitializeAsync(guid);
         }
+    }
+
+    private async Task InitializeAsync(string guid)
+    {
+        var compound = await _repository.RetrieveCompoundByGuidAsync(guid);
+        Name = compound.Name;
+        Description = compound.Description;
+        _guid = guid;
+        var invokes = compound.Components.Select(item => _editInvokeViewModelFactory.Create(this, item));
+        Invokes.Clear();
+        Invokes.AddRange(invokes);
+        IsDirty = false;
     }
 }

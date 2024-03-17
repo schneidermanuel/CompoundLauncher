@@ -14,7 +14,7 @@
             <Button Classes="IconButton" Command="{Binding GoBackCommand}">
                 <avalonia:Icon Value="fa-solid fa-right-to-bracket" />
             </Button>
-            <Button Classes="IconButton">
+            <Button Classes="IconButton" Command="{Binding ResetCommand}">
                 <avalonia:Icon Value="fa-solid fa-rotate-left" />
             </Button>
             <Button Classes="IconButton" Command="{Binding SaveCommand}">

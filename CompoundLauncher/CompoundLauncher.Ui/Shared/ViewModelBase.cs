@@ -6,18 +6,20 @@ namespace CompoundLauncher.Ui.Shared;
 
 public class ViewModelBase : ObservableValidator
 {
-    public bool IsDirty { get; set; }
+    public virtual bool IsDirty { get; set; }
 
     private void HandleDirtyIndication(object? sender, PropertyChangedEventArgs e)
     {
         IsDirty = true;
+        ValidateAllProperties();
     }
 
     public INavigationService NavigationService;
 
     public void Create(INavigationService navigationService)
     {
-        this.PropertyChanged += HandleDirtyIndication;
+        PropertyChanged += HandleDirtyIndication;
         NavigationService = navigationService;
+        ValidateAllProperties();
     }
 }

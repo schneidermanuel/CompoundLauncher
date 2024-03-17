@@ -8,5 +8,6 @@ internal static class EditCompoundViewModule
     {
         serviceCollection.AddTransient<IEditInvokeViewModelFactory, EditInvokeViewModelFactory>();
         serviceCollection.AddTransient<EditCompoundViewModel>();
+        serviceCollection.AddTransient<EditInvokeViewModel>();
     }
 }

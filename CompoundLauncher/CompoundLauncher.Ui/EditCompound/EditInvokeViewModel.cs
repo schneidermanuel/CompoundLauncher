@@ -12,19 +12,26 @@ namespace CompoundLauncher.Ui.EditCompound;
 internal partial class EditInvokeViewModel : ViewModelBase
 {
     private Window _window;
-    private readonly ILaunchTypeProvider _launchTypeProvider;
 
     public EditInvokeViewModel(Window window, ILaunchTypeProvider launchTypeProvider)
     {
         _window = window;
-        _launchTypeProvider = launchTypeProvider;
-        AllLaunchTypes = _launchTypeProvider.GetAllAvailableLaunchTypes();
+        AllLaunchTypes = launchTypeProvider.GetAllAvailableLaunchTypes();
     }
 
-    [Required] [ObservableProperty] private string _application;
-    [ObservableProperty] private string _args;
-    [Required] [ObservableProperty] private LaunchType _launchType;
-    [ObservableProperty] private IReadOnlyCollection<LaunchType> _allLaunchTypes;
+    [Required]
+    [ObservableProperty]
+    private string? _application;
+
+    [ObservableProperty]
+    private string? _args;
+
+    [Required]
+    [ObservableProperty]
+    private LaunchType? _launchType;
+
+    [ObservableProperty]
+    private IReadOnlyCollection<LaunchType> _allLaunchTypes;
 
     [RelayCommand]
     private async Task SelectFileAsync()
@@ -42,5 +49,6 @@ internal partial class EditInvokeViewModel : ViewModelBase
         }
     }
 
-    public ICommand RemoveInvokeCommand { get; set; }
+    [ObservableProperty]
+    private ICommand? _removeInvokeCommand;
 }

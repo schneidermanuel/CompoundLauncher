@@ -18,6 +18,11 @@ public sealed class BetterObservableCollection<T> : ObservableCollection<T>
         ItemChanged.Invoke(this, e);
         if (e.Action == NotifyCollectionChangedAction.Remove || e.Action == NotifyCollectionChangedAction.Reset)
         {
+            if (e.OldItems == null)
+            {
+                return;
+            }
+
             foreach (var item in e.OldItems)
             {
                 if (item is INotifyPropertyChanged propertyChanged)
