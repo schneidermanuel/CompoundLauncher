@@ -1,7 +1,7 @@
-using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CompoundLauncher.Domain.DataAccess.Compounds;
+using CompoundLauncher.Domain.Launcher;
 using CompoundLauncher.Ui.EditCompound;
 using CompoundLauncher.Ui.MessageBox.Provider;
 using CompoundLauncher.Ui.Navigation;
@@ -14,6 +14,7 @@ internal partial class CompoundItemViewModel : ViewModelBase
     private readonly INavigationService _navigationService;
     private readonly ICompoundRepository _repository;
     private readonly IMessageBoxProvider _messageBoxProvider;
+    private readonly ICompoundLauncher _compoundLauncher;
 
     [ObservableProperty] private string _guid;
     [ObservableProperty] private string _name;
@@ -23,12 +24,14 @@ internal partial class CompoundItemViewModel : ViewModelBase
     public CompoundItemViewModel(
         INavigationService navigationService,
         ICompoundRepository repository,
-        IMessageBoxProvider messageBoxProvider
-        )
+        IMessageBoxProvider messageBoxProvider,
+        ICompoundLauncher compoundLauncher
+    )
     {
         _navigationService = navigationService;
         _repository = repository;
         _messageBoxProvider = messageBoxProvider;
+        _compoundLauncher = compoundLauncher;
     }
 
     [RelayCommand]
@@ -47,5 +50,11 @@ internal partial class CompoundItemViewModel : ViewModelBase
             await _repository.DeleteCompoundAsync(Guid, cancellationToken);
             await _navigationService.NavigateToAsync<MainViewModel>();
         }
+    }
+
+    [RelayCommand]
+    private async Task OpenCompoundAsync(CancellationToken cancellationToken)
+    {
+        await _compoundLauncher.RunAsync(_guid, cancellationToken);
     }
 }

@@ -17,6 +17,10 @@ internal class FileProvider : IFileProvider
     {
         return await Task.Run(() =>
         {
+            if (!Directory.Exists(Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName)))
+            {
+                Directory.CreateDirectory(Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName));
+            }
             var files = Directory.GetFiles(Path.Combine(GetApplicationDirectory(), CustomCompoundsDirectoryName));
             return files;
         });

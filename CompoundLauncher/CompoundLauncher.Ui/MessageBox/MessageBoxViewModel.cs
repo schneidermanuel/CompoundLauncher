@@ -1,7 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CompoundLauncher.Ui.MessageBox.Provider;
-using CompoundLauncher.Ui.Shared;
 
 namespace CompoundLauncher.Ui.MessageBox;
 

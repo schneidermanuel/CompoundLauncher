@@ -33,6 +33,7 @@
                 <ItemsControl.DataTemplates>
                     <DataTemplate DataType="{x:Type mainView:CompoundItemViewModel}">
                         <Button Classes="CmpButton" CornerRadius="12" Background="DarkSlateGray" Width="250"
+                                Command="{Binding OpenCompoundCommand}"
                                 Margin="10" Height="320" Padding="5" BorderThickness="1" BorderBrush="Black">
                             <Grid RowDefinitions="*, Auto" ColumnDefinitions="*, Auto">
                                 <Grid RowDefinitions="Auto, Auto, 2*, 3*"

@@ -1,6 +1,7 @@
 using System.Text;
 using CompoundLauncher.Domain.Data;
 using CompoundLauncher.Domain.DataAccess.Compounds;
+using CompoundLauncher.Domain.Launcher;
 using CompoundLauncher.Ui.MessageBox.Provider;
 using CompoundLauncher.Ui.Navigation;
 
@@ -11,15 +12,18 @@ internal class CompoundItemViewModelFactory : ICompoundItemViewModelFactory
     private readonly INavigationService _navigationService;
     private readonly ICompoundRepository _repository;
     private readonly IMessageBoxProvider _messageBoxProvider;
+    private readonly ICompoundLauncher _launcher;
 
     public CompoundItemViewModelFactory(
         INavigationService navigationService,
         ICompoundRepository repository,
-        IMessageBoxProvider messageBoxProvider)
+        IMessageBoxProvider messageBoxProvider,
+        ICompoundLauncher launcher)
     {
         _navigationService = navigationService;
         _repository = repository;
         _messageBoxProvider = messageBoxProvider;
+        _launcher = launcher;
     }
 
     public CompoundItemViewModel Create(Compound compound)
@@ -37,7 +41,7 @@ internal class CompoundItemViewModelFactory : ICompoundItemViewModelFactory
             builder.AppendLine("+ " + moreCount + " others");
         }
 
-        var viewModel = new CompoundItemViewModel(_navigationService, _repository, _messageBoxProvider)
+        var viewModel = new CompoundItemViewModel(_navigationService, _repository, _messageBoxProvider, _launcher)
         {
             Guid = compound.Guid,
             Name = compound.Name,

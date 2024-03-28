@@ -3,12 +3,10 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using CompoundLauncher.Domain;
-using CompoundLauncher.Domain.DataAccess;
 using CompoundLauncher.MainWindow;
 using CompoundLauncher.Ui;
 using CompoundLauncher.Ui.MainView;
 using CompoundLauncher.Ui.Navigation;
-using CompoundLauncher.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CompoundLauncher;

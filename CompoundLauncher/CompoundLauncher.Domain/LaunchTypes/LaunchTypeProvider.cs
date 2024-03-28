@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using System.Reflection;
 using CompoundLauncher.Domain.Data;
 
 namespace CompoundLauncher.Domain.LaunchTypes;

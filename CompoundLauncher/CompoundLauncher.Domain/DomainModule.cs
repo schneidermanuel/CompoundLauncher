@@ -1,4 +1,5 @@
 using CompoundLauncher.Domain.DataAccess;
+using CompoundLauncher.Domain.Launcher;
 using CompoundLauncher.Domain.LaunchTypes;
 using CompoundLauncher.Domain.Validation;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ public static class DomainModule
     {
         serviceCollection.AddDataAccessTypes();
         serviceCollection.AddValidationTypes();
+        serviceCollection.AddLauncherTypes();
         serviceCollection.AddTransient<ILaunchTypeProvider, LaunchTypeProvider>();
     }
     
